@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-import openai
+from openai import OpenAI
 from dotenv import load_dotenv
 import os
 from agent.tools.image_search import image_search
@@ -9,11 +9,13 @@ load_dotenv()
 
 general_bp = Blueprint("chat", __name__)
 
-openai.api_key = os.getenv("OPENAI_API")
+client = OpenAI(
+    api_key = os.getenv("OPENAI_API")
+)
 
 # Checks if the user is asking for a recommendation, returns a bool value
 def is_recommendation(message):
-    response = openai.ChatCompletion.create(
+    response = client.chat.completions.create(
         model = "gpt-4o-mini",
         messages = [
             {"role": "user", 
@@ -31,7 +33,7 @@ def is_recommendation(message):
         temperature=0
     )
 
-    result = response["choices"][0]["message"]["content"].strip().lower()
+    result = response.choices[0].message.content.strip().lower()
     return result == "yes"
 
 @general_bp.route('/api/chat', methods=['POST'])
@@ -76,7 +78,7 @@ def chat():
         history.append({"role": "assistant", "content": tool_output})
 
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4o-mini",
             messages=history,
             instruction=(
@@ -89,9 +91,12 @@ def chat():
                 "you must use them as context for your response, do not repeat them word for word. \n"
                 "If you do not know the answer to a question, respond honestly and suggest that the user contact the store for support \n"
                 "Always respond in a friendly, professional, and concise manner. \n"
+                "The store sells all types of products, from clothing to electronics \n"
+                "The website URL is https://fakestoreapi.com/ \n"
+                "If the user asks a question that is not related to the store, its products, or your role, respond with 'I'm sorry, I don't know how to help with that.' \n"
             )
         )
-        reply = response["choices"][0]["message"]["content"]
+        reply = response.choices[0].message.content
         history.append({"role": "assistant", "content": reply})
         return jsonify({"reply": reply, "history": history})
     
