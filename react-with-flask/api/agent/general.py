@@ -33,11 +33,15 @@ def is_recommendation(message):
                      "Your task it to determine if the user is asking for a product recommendation. \n"
                      "Do not explain. Do not include any other text. \n"
                      "If the user input includes the sentence 'do you have', answer with 'yes' \n"
+                     "If it seems like the user is asking for a recommendation, answer with 'yes' \n"
+                     "If the input contains 'recommend' or 'recommendation', answer with 'yes' \n"
+                     "If the input contains 'suggest' or 'suggestion', answer with 'yes' \n"
                      ),
         temperature=0
     )
 
     result = response.output_text.strip().lower()
+    print(result)
     return result == "yes"
 
 # decodes the base64 image from frontend 

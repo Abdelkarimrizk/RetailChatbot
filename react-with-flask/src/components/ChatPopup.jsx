@@ -18,6 +18,11 @@ const ChatPopup = () => {
   const [image, setImage] = useState(null);
   const fileInputRef = useRef();
 
+  const [suggestions, setSuggestions] = useState([
+    "What can you do?",
+    "Recommend me a t-shirt for sports.",
+  ]);
+
   const fileToBase64 = (file) =>
     new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -39,6 +44,29 @@ const ChatPopup = () => {
       messagesEndRef.current.scrollIntoView({ behavior: "auto" });
     }
   }, [open]);
+
+  // Image pasting
+  useEffect(() => {
+  const handlePaste = (event) => {
+    const items = event.clipboardData?.items;
+    if (!items) return;
+
+    for (const item of items) {
+      if (item.type.startsWith("image/")) {
+        const file = item.getAsFile();
+        if (file && file.size <= 3 * 1024 * 1024) {
+          setImage(file);
+        } else {
+          alert("Pasted image is too large (max 3MB).");
+        }
+        break; // only process first image
+      }
+    }
+  };
+
+  document.addEventListener("paste", handlePaste);
+  return () => document.removeEventListener("paste", handlePaste);
+}, []);
 
   // Send message to backend
   const handleSend = async (messageOverride = null) => {
@@ -99,8 +127,8 @@ const ChatPopup = () => {
       {open && (
         <div className=" w-full h-[80vh]  rounded-xl bg-zinc-900 shadow-lg flex flex-col overflow-hidden">
           {/* Header */}
-          <div className="px-4 py-3 border-b border-zinc-800 bg-zinc-900 text-center">
-            <h2 className="text-white font-semibold text-sm">Iris</h2>
+          <div className="px-4 py-3 border-b border-zinc-600 bg-zinc-900 text-center">
+            <h2 className="text-white font-semibold text-lg">Iris</h2>
           </div>
 
           {/* Message area */}
@@ -152,12 +180,17 @@ const ChatPopup = () => {
           </div>
 
           {/* Suggested prompts */}
-          <div className="px-4 pb-2 flex flex-wrap gap-2">
-            {["What can you do?"].map((suggestion, i) => (
+          <div className="px-4 pb-2 flex flex-wrap justify-center gap-2">
+            {suggestions.map((suggestion, i) => (
               <button
                 key={i}
-                onClick={() => handleSend(suggestion)}
-                className="bg-zinc-800 text-white text-sm px-3 py-1 rounded-full hover:bg-zinc-700 border border-zinc-700"
+                onClick={() => {
+                  handleSend(suggestion);
+                  setSuggestions((prev) =>
+                    prev.filter((s) => s !== suggestion)
+                  );
+                }}
+                className="bg-zinc-800 text-white text-sm px-4 py-2 rounded-full hover:bg-zinc-700 border border-zinc-600"
               >
                 {suggestion}
               </button>
@@ -169,7 +202,7 @@ const ChatPopup = () => {
               <img
                 src={URL.createObjectURL(image)}
                 alt="preview"
-                className="h-20 rounded-md object-contain border border-zinc-700"
+                className="h-20 rounded-md object-contain border border-zinc-600"
               />
               <button
                 onClick={() => setImage(null)}
@@ -181,7 +214,7 @@ const ChatPopup = () => {
             </div>
           )}
           {/* Input bar */}
-          <div className="flex items-center px-3 py-2 bg-zinc-900 border-t border-zinc-800">
+          <div className="flex items-center px-3 py-3 bg-zinc-900 border-t border-zinc-600">
             <FaPaperclip
               className="text-gray-400 mr-2 cursor-pointer"
               onClick={() => fileInputRef.current?.click()}
@@ -212,7 +245,7 @@ const ChatPopup = () => {
             />
             <button
               onClick={() => handleSend()}
-              className="ml-2 bg-blue-500 hover:bg-blue-600 p-2 rounded-md text-white"
+              className="ml-2 bg-blue-500 hover:bg-blue-600 p-2 rounded-md text-black"
             >
               <IoIosSend size={16} />
             </button>
@@ -227,7 +260,6 @@ const ChatPopup = () => {
       >
         {open ? <IoIosArrowDown size={20} /> : <PiChatsCircle size={20} />}
       </button>
-      
     </div>
   );
 };
