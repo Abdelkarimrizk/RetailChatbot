@@ -26,8 +26,7 @@ embedding_dict = {}
 for item in embeddings:
     embedding_dict[item["id"]] = np.array(item["embedding"])
 
-def get_embedding(image_path):
-    image = Image.open(image_path).convert("RGB")
+def get_embedding(image):
     outputs = pipe(image)
     pooled = np.array(outputs[0]).mean(axis=0) 
     return pooled
@@ -37,9 +36,9 @@ def cosine_similarity(a, b):
         return 0
     return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
 
-def image_search(image_path):
+def image_search(image):
     try:
-        image_embedding = get_embedding(image_path)
+        image_embedding = get_embedding(image)
     except Exception as e:
         print(e)
         return []
@@ -55,5 +54,5 @@ def image_search(image_path):
         
         recommendations.sort(key = lambda x: x[0], reverse = True)
         
-    return [product for _, product in recommendations[:3]]
+    return [product for _, product in recommendations[:10]]
 

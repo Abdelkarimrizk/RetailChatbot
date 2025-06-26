@@ -1,21 +1,11 @@
-import { useState, useEffect } from 'react'
-import './App.css'
+import ChatPopup from './components/ChatPopup'
 
 function App() {
-  const [time, setTime] = useState(0)
-
-  useEffect(() => {
-    fetch('/api/time')
-      .then((res) => res.json())
-      .then(data => setTime(data.time))
-      }, [])
-
   return (
-    <>
-      <div className="time">
-        <p>The current time is {new Date(time * 1000).toLocaleString()}</p>
-      </div>
-    </>
+    <div className="relative min-h-screen bg-gray-100">
+      {/* Your fake store or UI here */}
+      <ChatPopup />
+    </div>
   )
 }
 

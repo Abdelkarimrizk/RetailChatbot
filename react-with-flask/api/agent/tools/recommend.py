@@ -77,7 +77,5 @@ def recommend(message):
         
         recommendations.sort(key = lambda x: x[0], reverse = True)
         
-    return [product for _, product in recommendations[:3]]
-
-
+    return [product for _, product in recommendations[:10]]
 
