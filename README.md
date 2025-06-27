@@ -281,7 +281,7 @@ You can copy any of the following images onto your clipboard and paste it in htt
 ## References
 
 - FakeStoreAPI.com for the mock data
-- OpenAI.com for GPT-4o-mini and GPT-4.1-nano
+- OpenAI.com for GPT-4o-mini, GPT-4.1-nano, and text-embedding-3-small
 - HuggingFace for google/vit-base-patch16-224
 - miguelgrinberg.com for the flask and react setup
 
