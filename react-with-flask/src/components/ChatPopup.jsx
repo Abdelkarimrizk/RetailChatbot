@@ -122,7 +122,7 @@ const ChatPopup = () => {
   };
 
   return (
-    <div className="fixed bottom-4 right-4 left-4 mx-auto sm:left-auto z-50 flex flex-col items-end space-y-2 w-[385px] sm:w-[500px]">
+    <div className="fixed bottom-4 right-4 left-4 mx-auto sm:left-auto z-50 flex flex-col items-end space-y-2 w-[350px] sm:w-[500px]">
       {/* Chat window */}
       {open && (
         <div className=" w-full h-[80vh]  rounded-xl bg-zinc-900 shadow-lg flex flex-col overflow-hidden">
