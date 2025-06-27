@@ -4,8 +4,8 @@ import os
 import json
 import numpy as np
 
-model_name = "google/vit-base-patch16-224"
-pipe =  pipeline(task="image-feature-extraction", model_name=model_name)
+mod = "google/vit-base-patch16-224"
+pipe =  pipeline(task="image-feature-extraction", model_name=mod)
 
 current_dir = os.path.dirname(os.path.abspath(__file__))
 data_dir = os.path.join(current_dir, "../data")
