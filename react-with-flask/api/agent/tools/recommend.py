@@ -32,7 +32,7 @@ for item in embeddings:
 def extract_recommendation(message):
     try:
         response = client.responses.create(
-            model = "gpt-4o-mini",
+            model = "gpt-4.1-nano",
             input = [{"role": "user", "content": message}],
             instructions= ("You extract the product the user is asking for a recommendation for. \n"
                            "Only reply with a short clear phrase or sentence describing what the user wants \n"

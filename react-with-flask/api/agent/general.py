@@ -18,8 +18,12 @@ client = OpenAI(
 
 # Checks if the user is asking for a recommendation, returns a bool value
 def is_recommendation(message):
+    keywords = ["recommend", "recommendation", "suggest", "suggestion", "do you have", "do you sell", "looking for", "looking to buy"]
+    if any(keyword in message.lower() for keyword in keywords):
+        return True
+    
     response = client.responses.create(
-        model = "gpt-4o-mini",
+        model = "gpt-4.1-nano",
         input = [
             {"role": "user", 
              "content": (
