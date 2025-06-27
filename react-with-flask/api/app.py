@@ -1,5 +1,5 @@
 from flask import Flask, send_from_directory
-from api.agent.general import general_bp
+from agent.general import general_bp
 import os
 
 app = Flask(__name__, static_folder="../dist", static_url_path="/")
