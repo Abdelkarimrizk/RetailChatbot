@@ -25,8 +25,8 @@
         <li><a href="#running-and-deploying-with-docker">Running and Deploying with Docker</a></li>
       </ul>
     </li>
-    <li><a href="#examples">Examples</a></li>
-    <li><a href="#test-it-yourself!">Test it yourself!</a></li>
+    <li><a href="#demo">Demo</a></li>
+    <li><a href="#test-it-yourself">Test it yourself</a></li>
     <li><a href="#references">References</a></li>
   </ol>
 </details>
@@ -261,8 +261,8 @@ Here are some examples of the bot in use:
 ### Follow Up Question:
 ![image](https://github.com/user-attachments/assets/733f15fb-8131-4406-a86b-98289faa8fdc)
 
-<!-- Test it yourself! -->
-## Test it yourself!
+<!-- Test it yourself -->
+## Test it yourself
 
 You can copy any of the following images onto your clipboard and paste it in https://retailchatbot.cv
 (All images can be found in react-with-flask/api/agent/data/images)
