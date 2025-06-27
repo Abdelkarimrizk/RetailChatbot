@@ -115,6 +115,7 @@ def chat():
                 "When tool outputs (like product matches and recommendations) are provided in earlier assistant messages, "
                 "you must use them as context for your response, do not repeat them word for word. \n"
                 "Consider all messages when responding. \n"
+                "If the user has uploaded an image, recommend all products that match the image. \n"
                 "If you do not know the answer to a question, respond honestly and suggest that the user contact the store for support \n"
                 "Do not make up any information, if you cannot find the product in the earlier messages, the product does not exist. \n"
                 "If no products can be recommended, tell the user that there are no products like that. \n"

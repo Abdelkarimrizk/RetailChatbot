@@ -47,26 +47,36 @@ const ChatPopup = () => {
 
   // Image pasting
   useEffect(() => {
-  const handlePaste = (event) => {
-    const items = event.clipboardData?.items;
-    if (!items) return;
+    const handlePaste = (event) => {
+      const items = event.clipboardData?.items;
+      const supportedTypes = [
+        "image/jpeg",
+        "image/png",
+        "image/gif",
+        "image/webp",
+      ];
+      if (!items) return;
 
-    for (const item of items) {
-      if (item.type.startsWith("image/")) {
-        const file = item.getAsFile();
-        if (file && file.size <= 3 * 1024 * 1024) {
-          setImage(file);
-        } else {
-          alert("Pasted image is too large (max 3MB).");
+      for (const item of items) {
+        if (item.type.startsWith("image/")) {
+          const file = item.getAsFile();
+          if (!supportedTypes.includes(file.type)) {
+            alert("Only JPG, PNG, GIF, or WebP images are supported.");
+            return;
+          }
+          if (file && file.size <= 3 * 1024 * 1024) {
+            setImage(file);
+          } else {
+            alert("Pasted image is too large (max 3MB).");
+          }
+          break; // only process first image
         }
-        break; // only process first image
       }
-    }
-  };
+    };
 
-  document.addEventListener("paste", handlePaste);
-  return () => document.removeEventListener("paste", handlePaste);
-}, []);
+    document.addEventListener("paste", handlePaste);
+    return () => document.removeEventListener("paste", handlePaste);
+  }, []);
 
   // Send message to backend
   const handleSend = async (messageOverride = null) => {
@@ -226,7 +236,17 @@ const ChatPopup = () => {
               ref={fileInputRef}
               onChange={(e) => {
                 const file = e.target.files[0];
+                const supportedTypes = [
+                  "image/jpeg",
+                  "image/png",
+                  "image/gif",
+                  "image/webp",
+                ];
                 if (file) {
+                  if (!supportedTypes.includes(file.type)) {
+                    alert("Only JPG, PNG, GIF, or WebP images are supported.");
+                    return;
+                  }
                   if (file.size > 3 * 1024 * 1024) {
                     alert("Image size must be under 3MB");
                     return;
@@ -252,15 +272,15 @@ const ChatPopup = () => {
           </div>
         </div>
       )}
-      <div className= " mr-0.5">
-      {/* Toggle Button */}
-      <button
-        onClick={() => setOpen(!open)}
-        className=" bg-blue-500 hover:bg-blue-600  text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md"
-      >
-        {open ? <IoIosArrowDown size={20} /> : <PiChatsCircle size={20} />}
-      </button>
-    </div>
+      <div className=" mr-0.5">
+        {/* Toggle Button */}
+        <button
+          onClick={() => setOpen(!open)}
+          className=" bg-blue-500 hover:bg-blue-600  text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md"
+        >
+          {open ? <IoIosArrowDown size={20} /> : <PiChatsCircle size={20} />}
+        </button>
+      </div>
     </div>
   );
 };
