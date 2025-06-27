@@ -252,14 +252,15 @@ const ChatPopup = () => {
           </div>
         </div>
       )}
-
+      <div className= " mr-0.5">
       {/* Toggle Button */}
       <button
         onClick={() => setOpen(!open)}
-        className="bg-blue-500 hover:bg-blue-600 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md"
+        className=" bg-blue-500 hover:bg-blue-600  text-white rounded-full w-10 h-10 flex items-center justify-center shadow-md"
       >
         {open ? <IoIosArrowDown size={20} /> : <PiChatsCircle size={20} />}
       </button>
+    </div>
     </div>
   );
 };
