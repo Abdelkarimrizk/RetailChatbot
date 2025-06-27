@@ -245,7 +245,7 @@ const ChatPopup = () => {
             />
             <button
               onClick={() => handleSend()}
-              className="ml-2 bg-blue-500 hover:bg-blue-600 p-2 rounded-md text-black"
+              className="ml-2 bg-blue-500 hover:bg-blue-600 p-2 rounded-md text-white"
             >
               <IoIosSend size={16} />
             </button>
