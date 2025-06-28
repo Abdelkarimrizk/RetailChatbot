@@ -54,13 +54,13 @@ link: https://retailchatbot.cv/
 
 | Component | Technology | Why I Chose It              |
 |-----------|------------|-----------------------------|
-| Frontend  | React + Tailwind CSS | I have previous experience with react and tailwind through another<br> project I am currently working on. |
+| Frontend  | React + Tailwind CSS | I have previous experience with react and tailwind through another project I am currently working on. |
 | Backend | Flask (Python) | Lightweight, flexible, and most straightforward to use given the timeframe. |
 | AI Response | OpenAI GPT-4o mini | Fast, light, and one of the better customer facing models. |
 | AI Logic | OpenAI GPT-4.1 nano | Extremely fast, efficient, and light, perfect for simple classification. |
 | Text Embedding | OpenAI text-embedding-3-small | Optimized for storage and latency, helping embed text faster. |
 | Image Embedding | HuggingFace Google ViT | Light and quick, allowing for almost immediate image embedding. |
-| Deployment | Docker + Gunicorn | Docker helps make deployment simple and it allows for cross platform use, and Gunicorn helps the website handle traffic |
+| Deployment | Docker + Gunicorn | Docker helps make deployment simple and it allows for cross platform use, and Gunicorn helps the website handle traffic. |
 | Hosting | Hetzner | I already owned a server with enough ram and cpu power, allowing for more control and faster use.  |
 
 
@@ -98,7 +98,7 @@ There are a few features I would have liked to include, but unfortunately, I was
 
 ```json
 {
-  "reply": "Here are a few monitors you might like...",
+  "reply": "Here are a couple of monitors that I can recommend: ...",
   "history": [
     {"role": "user", "content": "What is your name?"},
     {"role": "assistant", "content": "My name is Iris. How can I assist you today?"}
