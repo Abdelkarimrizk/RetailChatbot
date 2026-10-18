@@ -40,7 +40,7 @@ Iris is an AI chatbot created for a generic ecommerce store. It helps users with
 
 This project was built using Flask and React, and it is deployed using Docker on a private virtual server (Hetzner).
 
-link: https://retailchatbot.cv/
+link: https://retailchatbot.fyi/
 
 **Key Features:**
 - Answer general store/product questions
